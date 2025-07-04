@@ -26,9 +26,14 @@ function includeToken() {
 
 const request = {
   create: async ({ entity, jsonData }) => {
+    let response;
     try {
       includeToken();
-      const response = await axios.post(entity + '/create', jsonData);
+      if (entity == 'queries') {
+        response = await axios.post(entity, jsonData);
+      } else {
+        response = await axios.post(entity + '/create', jsonData);
+      }
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,
@@ -167,6 +172,10 @@ const request = {
         notifyOnSuccess: false,
         notifyOnFailed: false,
       });
+
+      // if(response?.data?.datatype=='query') {
+
+      // }
       return response.data;
     } catch (error) {
       return errorHandler(error);

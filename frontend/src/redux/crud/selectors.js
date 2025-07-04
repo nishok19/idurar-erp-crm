@@ -5,6 +5,7 @@ const selectCrud = (state) => state.crud;
 export const selectCurrentItem = createSelector([selectCrud], (crud) => crud.current);
 
 export const selectListItems = createSelector([selectCrud], (crud) => crud.list);
+export const selectQueryItems = createSelector([selectCrud], (crud) => crud.queries);
 export const selectItemById = (itemId) =>
   createSelector(selectListItems, (list) => list.result.items.find((item) => item._id === itemId));
 

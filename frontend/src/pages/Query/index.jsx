@@ -26,7 +26,7 @@ export default function QueryListPage() {
     (state) => state.crud.queries || { result: { items: [], pagination: {} } }
   );
   const { result: clientResult } = useSelector(
-    (state) => state.crud.clients || { result: { items: [] } }
+    (state) => state.crud.list || { result: { items: [] } }
   );
 
   // Fetch on mount
@@ -45,6 +45,7 @@ export default function QueryListPage() {
   const fetchQueries = async (options = {}) => {
     const params = new URLSearchParams(options).toString();
     const res = await request.get({ entity: `/queries${params ? '?' + params : ''}` });
+    console.log('in query compo ', res);
     return res.data || res;
   };
 
@@ -52,8 +53,8 @@ export default function QueryListPage() {
   const columns = [
     {
       title: translate('Customer Name'),
-      dataIndex: ['client', 'name'],
-      key: 'clientName',
+      dataIndex: 'client',
+      key: 'client',
       render: (_, record) => {
         const client = clientResult.items.find((c) => c._id === record.client);
         return client ? client.name : '-';

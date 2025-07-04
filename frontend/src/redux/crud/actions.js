@@ -45,21 +45,29 @@ export const crud = {
       });
 
       let data = await request.list({ entity, options });
-
+      console.log('dataaaa....', data);
       if (data.success === true) {
         const result = {
           items: data.result,
           pagination: {
-            current: parseInt(data.pagination.page, 10),
+            current: parseInt(data?.pagination?.page, 10),
             pageSize: options?.items,
-            total: parseInt(data.pagination.count, 10),
+            total: parseInt(data?.pagination?.count, 10),
           },
         };
-        dispatch({
-          type: actionTypes.REQUEST_SUCCESS,
-          keyState: 'list',
-          payload: result,
-        });
+        if (data?.datatype == 'query') {
+          dispatch({
+            type: actionTypes.REQUEST_SUCCESS,
+            keyState: 'queries',
+            payload: result,
+          });
+        } else {
+          dispatch({
+            type: actionTypes.REQUEST_SUCCESS,
+            keyState: 'list',
+            payload: result,
+          });
+        }
       } else {
         dispatch({
           type: actionTypes.REQUEST_FAILED,

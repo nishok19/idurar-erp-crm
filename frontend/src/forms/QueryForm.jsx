@@ -19,7 +19,6 @@ export default function QueryForm({ initialValues = {}, onFinish: onFinishProp }
   //   (state) => state.crud?.result || { result: { items: [] } }
   // );
   const clientResult = useSelector((state) => state.crud.list.result);
-  console.log('clientresultttt...', clientResult);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -27,19 +26,30 @@ export default function QueryForm({ initialValues = {}, onFinish: onFinishProp }
   }, [dispatch]);
 
   const onFinish = async (values) => {
+    console.log('form values...', values);
     setLoading(true);
     if (onFinishProp) {
       await onFinishProp(values);
     } else {
-      if (initialValues && initialValues._id) {
-        await dispatch(crud.update({ entity: 'queries', id: initialValues._id, values }));
-      } else {
-        await dispatch(crud.create({ entity: 'queries', values }));
-      }
+      await dispatch(crud.create({ entity: 'queries', jsonData: values }));
     }
     setLoading(false);
     form.resetFields();
   };
+  // const onFinish = async (values) => {
+  //   setLoading(true);
+  //   if (onFinishProp) {
+  //     await onFinishProp(values);
+  //   } else {
+  //     if (initialValues && initialValues._id) {
+  //       await dispatch(crud.update({ entity: 'queries', id: initialValues._id, values }));
+  //     } else {
+  //       await dispatch(crud.create({ entity: 'queries', values }));
+  //     }
+  //   }
+  //   setLoading(false);
+  //   form.resetFields();
+  // };
 
   return (
     <Form form={form} layout="vertical" initialValues={initialValues} onFinish={onFinish}>

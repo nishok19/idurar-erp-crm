@@ -11,6 +11,8 @@ const NoteSchema = new Schema({
 const QuerySchema = new Schema(
   {
     status: { type: String, enum: ['open', 'in_progress', 'resolved', 'closed'], default: 'open' },
+    client: { type: String },
+    description: { type: String },
     resolution: { type: String },
     notes: [NoteSchema],
   },

@@ -6,18 +6,27 @@ exports.list = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const skip = (page - 1) * limit;
-  console.log('checkkkk in /api/queries...', req);
   const [queries, total] = await Promise.all([
     Query.find().skip(skip).limit(limit).sort({ createdAt: -1 }),
     Query.countDocuments(),
   ]);
-  res.json({ data: queries, total, page, limit });
+  res.json({
+    result: queries,
+    pagination: {
+      page: page,
+      count: total,
+      pages: Math.ceil(total / limit),
+    },
+    datatype: 'query',
+    success: true,
+  });
 };
 
 // POST /api/queries
 exports.create = async (req, res) => {
-  const { status, resolution } = req.body;
-  const query = new Query({ status, resolution });
+  const { status, resolution, client, description } = req.body;
+  console.log('query body..., ', req.body);
+  const query = new Query({ status, resolution, client, description });
   await query.save();
   res.status(201).json(query);
 };

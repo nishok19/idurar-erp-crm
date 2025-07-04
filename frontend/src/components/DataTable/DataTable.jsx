@@ -14,7 +14,7 @@ import { PageHeader } from '@ant-design/pro-layout';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { crud } from '@/redux/crud/actions';
-import { selectListItems } from '@/redux/crud/selectors';
+import { selectListItems, selectQueryItems } from '@/redux/crud/selectors';
 import useLanguage from '@/locale/useLanguage';
 import { dataForTable } from '@/utils/dataStructure';
 import { useMoney, useDate } from '@/settings';
@@ -162,9 +162,11 @@ export default function DataTable({ config, extra = [] }) {
     },
   ];
 
-  const { result: listResult, isLoading: listIsLoading } = useSelector(selectListItems);
-
+  const { result: listResult, isLoading: listIsLoading } = useSelector(
+    entity == 'queries' ? selectQueryItems : selectListItems
+  );
   const { pagination, items: dataSource } = listResult;
+  console.log('resultttt... ', dataSource);
 
   const dispatch = useDispatch();
 
