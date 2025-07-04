@@ -26,6 +26,9 @@ const PaymentMode = lazy(() => import('@/pages/PaymentMode'));
 const Taxes = lazy(() => import('@/pages/Taxes'));
 
 const Profile = lazy(() => import('@/pages/Profile'));
+const Query = lazy(() => import('@/pages/Query'));
+const QueryForm = lazy(() => import('@/forms/QueryForm'));
+const ReadQuery = lazy(() => import('@/pages/Query/ReadQuery'));
 
 const About = lazy(() => import('@/pages/About'));
 
@@ -100,6 +103,18 @@ let routes = {
     {
       path: '/payment/update/:id',
       element: <PaymentUpdate />,
+    },
+    {
+      path: '/query',
+      element: <Query />,
+    },
+    {
+      path: '/query/create',
+      element: <QueryForm />,
+    },
+    {
+      path: '/query/:id',
+      element: <ReadQuery />,
     },
 
     {

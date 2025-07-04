@@ -22,16 +22,32 @@ import { useMoney, useDate } from '@/settings';
 import { generate as uniqueId } from 'shortid';
 
 import { useCrudContext } from '@/context/crud';
+import { useNavigate } from 'react-router-dom';
 
 function AddNewItem({ config }) {
   const { crudContextAction } = useCrudContext();
   const { collapsedBox, panel } = crudContextAction;
-  const { ADD_NEW_ENTITY } = config;
-
+  const { ADD_NEW_ENTITY, navigateTo } = config;
+  const navigate = useNavigate();
   const handelClick = () => {
     panel.open();
     collapsedBox.close();
   };
+
+  if (navigateTo) {
+    return (
+      <Button
+        onClick={() => {
+          panel.open();
+          collapsedBox.close();
+          navigate(navigateTo);
+        }}
+        type="primary"
+      >
+        {ADD_NEW_ENTITY}
+      </Button>
+    );
+  }
 
   return (
     <Button onClick={handelClick} type="primary">
