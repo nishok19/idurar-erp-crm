@@ -2,10 +2,9 @@
 
 ### Demo Video
 
-<video width="100%" controls>
-  <source src="demo-query.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+![Demo Query](demo-query.mp4)
+
+_Note: The video shows the Query Management feature in action_
 
 The Query Management feature has been implemented as a comprehensive customer support system with both backend API routes and frontend components.
 
