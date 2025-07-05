@@ -2,7 +2,7 @@
 
 ### Demo Video
 
-![Demo Query](demo-query.mp4)
+https://github.com/your-username/idurar-erp-crm/releases/download/v1.0.0/demo-query.mp4
 
 _Note: The video shows the Query Management feature in action_
 
