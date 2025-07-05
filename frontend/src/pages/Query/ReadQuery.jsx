@@ -12,8 +12,8 @@ export default function ReadQuery() {
   const fetchQuery = async () => {
     setLoading(true);
     try {
-      const res = await request.get(`/queries/${id}`);
-      setQuery(res.data);
+      const res = await request.get({ entity: `/queries/${id}` });
+      setQuery(res);
     } catch (e) {
       message.error('Failed to fetch query');
     }
@@ -22,12 +22,13 @@ export default function ReadQuery() {
 
   useEffect(() => {
     fetchQuery();
+
     // eslint-disable-next-line
   }, [id]);
 
   const handleAddNote = async (text) => {
     try {
-      await request.post(`/queries/${id}/notes`, { text });
+      await request.post({ entity: `/queries/${id}/notes`, jsonData: { note: text } });
       fetchQuery();
     } catch (e) {
       message.error('Failed to add note');
@@ -36,7 +37,7 @@ export default function ReadQuery() {
 
   const handleDeleteNote = async (noteId) => {
     try {
-      await request.delete(`/queries/${id}/notes/${noteId}`);
+      await request.delete({ entity: `/queries/${id}/notes`, id: noteId });
       fetchQuery();
     } catch (e) {
       message.error('Failed to delete note');
@@ -48,17 +49,17 @@ export default function ReadQuery() {
   return (
     <div>
       <Descriptions title="Query Details" bordered column={1}>
-        <Descriptions.Item label="Customer">{query.client}</Descriptions.Item>
-        <Descriptions.Item label="Description">{query.description}</Descriptions.Item>
-        <Descriptions.Item label="Status">{query.status}</Descriptions.Item>
-        <Descriptions.Item label="Resolution">{query.resolution}</Descriptions.Item>
+        <Descriptions.Item label="Customer">{query?.client}</Descriptions.Item>
+        <Descriptions.Item label="Description">{query?.description}</Descriptions.Item>
+        <Descriptions.Item label="Status">{query?.status}</Descriptions.Item>
+        <Descriptions.Item label="Resolution">{query?.resolution}</Descriptions.Item>
         <Descriptions.Item label="Created At">
-          {new Date(query.createdAt).toLocaleString()}
+          {new Date(query?.createdAt).toLocaleString()}
         </Descriptions.Item>
       </Descriptions>
       <div style={{ marginTop: 24 }}>
         <Notes
-          notes={query.notes || []}
+          notes={query?.notes || []}
           onAddNote={handleAddNote}
           onDeleteNote={handleDeleteNote}
         />

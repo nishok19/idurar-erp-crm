@@ -109,6 +109,10 @@ let routes = {
       element: <Query />,
     },
     {
+      path: '/query/:id',
+      element: <ReadQuery />,
+    },
+    {
       path: '/query/create',
       element: <QueryForm />,
     },

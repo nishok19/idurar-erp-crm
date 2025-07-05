@@ -83,6 +83,7 @@ export default function DataTable({ config, extra = [] }) {
   const navigate = useNavigate();
 
   const handleRead = (record) => {
+    console.log('Show button clicked for invoice record:', record);
     dispatch(erp.currentItem({ data: record }));
     navigate(`/${entity}/read/${record._id}`);
   };

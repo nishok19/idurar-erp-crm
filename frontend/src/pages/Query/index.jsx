@@ -5,9 +5,11 @@ import DataTable from '@/components/DataTable/DataTable';
 import CrudModal from '@/components/CrudModal';
 import QueryForm from '@/forms/QueryForm';
 import useLanguage from '@/locale/useLanguage';
-import { Select } from 'antd';
+import { Select, Modal } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import { DefaultLayout } from '@/layout';
 import { request } from '@/request';
+import DeleteModal from '@/components/CrudModal';
 
 const STATUS_OPTIONS = [
   { value: 'open', label: 'Open' },
@@ -20,6 +22,8 @@ export default function QueryListPage() {
   const translate = useLanguage();
   const dispatch = useDispatch();
   const [statusFilter, setStatusFilter] = useState();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [currentEditItem, setCurrentEditItem] = useState(null);
 
   // Fetch queries and clients
   const { result: queryResult } = useSelector(
@@ -48,6 +52,12 @@ export default function QueryListPage() {
     console.log('in query compo ', res);
     return res.data || res;
   };
+
+  // // Custom edit handler for queries
+  // const handleEditQuery = (record) => {
+  //   setCurrentEditItem(record);
+  //   setIsEditModalOpen(true);
+  // };
 
   // DataTable columns
   const columns = [
@@ -110,9 +120,32 @@ export default function QueryListPage() {
           navigateTo: '/query/create',
         }}
       />
-      <CrudModal config={{ entity: 'queries', modalTitle: translate('Add/Edit Query') }}>
-        <QueryForm />
-      </CrudModal>
+      {/* <CrudModal
+        config={{
+          entity: 'queries',
+          modalTitle: translate('Edit Query'),
+          open: isEditModalOpen,
+          onCancel: () => {
+            setIsEditModalOpen(false);
+            setCurrentEditItem(null);
+          },
+          onOk: () => {
+            // Handle form submission
+            setIsEditModalOpen(false);
+            setCurrentEditItem(null);
+          },
+        }}
+      >
+        <QueryForm initialValues={currentEditItem} />
+      </CrudModal> */}
+      <DeleteModal
+        config={{
+          entity: 'queries',
+          deleteModalLabels: ['description'],
+          modalTitle: translate('Delete Query'),
+          deleteMessage: translate('Are you sure you want to delete this query?'),
+        }}
+      />
     </DefaultLayout>
   );
 }

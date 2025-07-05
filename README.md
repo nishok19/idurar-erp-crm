@@ -1,5 +1,12 @@
 ## Query Management Feature Implementation
 
+### Demo Video
+
+<video width="100%" controls>
+  <source src="demo-query.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 The Query Management feature has been implemented as a comprehensive customer support system with both backend API routes and frontend components.
 
 ### Backend Implementation

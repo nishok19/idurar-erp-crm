@@ -48,11 +48,11 @@ exports.update = async (req, res) => {
 
 // POST /api/queries/:id/notes
 exports.addNote = async (req, res) => {
-  const { text } = req.body;
-  const note = { noteId: uuidv4(), text };
+  const { note } = req.body;
+  const newNote = { noteId: uuidv4(), note };
   const query = await Query.findByIdAndUpdate(
     req.params.id,
-    { $push: { notes: note } },
+    { $push: { notes: newNote } },
     { new: true }
   );
   if (!query) return res.status(404).json({ error: 'Query not found' });

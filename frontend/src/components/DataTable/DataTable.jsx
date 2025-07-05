@@ -62,6 +62,7 @@ export default function DataTable({ config, extra = [] }) {
   const translate = useLanguage();
   const { moneyFormatter } = useMoney();
   const { dateFormat } = useDate();
+  const navigate = useNavigate();
 
   const items = [
     {
@@ -87,10 +88,15 @@ export default function DataTable({ config, extra = [] }) {
   ];
 
   const handleRead = (record) => {
-    dispatch(crud.currentItem({ data: record }));
-    panel.open();
-    collapsedBox.open();
-    readBox.open();
+    if (entity == 'queries') {
+      console.log('asdfwerweweeeeee,,,', record);
+      navigate(`/query/${record._id}`);
+    } else {
+      dispatch(crud.currentItem({ data: record }));
+      panel.open();
+      collapsedBox.open();
+      readBox.open();
+    }
   };
   function handleEdit(record) {
     dispatch(crud.currentItem({ data: record }));

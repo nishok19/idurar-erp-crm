@@ -29,7 +29,7 @@ export default function Notes({ notes = [], onAddNote, onDeleteNote }) {
             ]}
           >
             <Space direction="vertical">
-              <span>{note.text}</span>
+              <span>{note.note}</span>
               <small>{new Date(note.timestamp).toLocaleString()}</small>
             </Space>
           </List.Item>

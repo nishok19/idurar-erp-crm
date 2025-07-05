@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const NoteSchema = new Schema({
   noteId: { type: String, default: uuidv4 },
-  text: { type: String, required: true },
+  note: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 
